@@ -14,14 +14,17 @@ var ballRadius=10;
 // Paddle variables
 var paddleHeight = 10;
 var paddleWidth = canvas.width/7;
-var paddlex = (canvas.width-paddleWidth)/2;
-var paddley = canvas.height-20;
+var paddleX = (canvas.width-paddleWidth)/2;
+var paddleY = canvas.height-20;
 
 // events for paddle handling
 var rightKey = false;
 var leftKey = false;
 document.addEventListener("keydown", keyDownHandler);
 document.addEventListener("keyup", keyUpHandler);
+document.addEventListener("mousemove", mouseMove);
+document.addEventListener("touchstart", touchStart);
+document.addEventListener("touchend", touchEnd);
 
 // brick variables
 var brickRow = 5;
@@ -60,6 +63,23 @@ function keyUpHandler(e)
 		leftKey=false;
 }
 
+function touchStart(evt) 
+{
+	rightKey=true;
+}
+function touchEnd(evt) 
+{
+	rightKey=false;
+}
+
+function mouseMove(e) 
+{
+	var relativeX = e.clientX - canvas.offsetLeft;
+    if(relativeX > 0 && relativeX < canvas.width) {
+        paddleX = relativeX - paddleWidth/2;
+    }
+}
+
 function drawBall()
 {
 	ctx.beginPath();
@@ -72,7 +92,7 @@ function drawBall()
 function drawPaddle()
 {
 	ctx.beginPath();
-	ctx.rect(paddlex, paddley, paddleWidth, paddleHeight);
+	ctx.rect(paddleX, paddleY, paddleWidth, paddleHeight);
 	ctx.fillStyle="#0095DD";
 	ctx.fill();
 	ctx.closePath();
@@ -142,7 +162,7 @@ function draw()
 		dy = -dy;
 	else if(y+dy+ballRadius>canvas.height)
 	{
-		if(x>paddlex && x<paddlex+paddleWidth)
+		if(x>paddleX && x<paddleX+paddleWidth)
 		{
 			dy=-dy;
 			if(dx<0 && dx>-5)
@@ -160,10 +180,10 @@ function draw()
 	y+=dy;
 
 	// moving paddle on key press
-	if(rightKey==true && (paddlex+paddleWidth)<canvas.width)
-		paddlex+=8;
-	else if(leftKey==true && (paddlex)>0)
-		paddlex-=8;
+	if(rightKey==true && (paddleX+paddleWidth)<canvas.width)
+		paddleX+=8;
+	else if(leftKey==true && (paddleX)>0)
+		paddleX-=8;
 
 }
 setInterval(draw, 10);
