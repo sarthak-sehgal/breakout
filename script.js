@@ -78,13 +78,17 @@ function keyUpHandler(e)
 function touchStart(evt) 
 {
 	xDown = evt.touches[0].clientX;                                      
-    if(xDown>0 && xDown<canvas.width)
+    if(xDown>canvas.width/2 && xDown<canvas.width)
 		rightKey=true;
+	else if(xDown>0 && xDown<=canvas.width/2)
+		leftKey=true;
 }
 function touchEnd(evt) 
 {
 	if(rightKey==true)
 		rightKey=false;
+	else if(leftKey==true)
+		leftKey=false;
 }
 
 function mouseMove(e) 
