@@ -59,19 +59,33 @@ for(var i=0; i<brickCol; i++)
 // score variables
 var score=0;
 
+// variables for play or paused and game start
+var flag=1;
+var dxtemp;
+var dytemp;
+var started=false;
+
 function keyDownHandler(e)
 {
-	if(e.keyCode==39)
+	if(e.keyCode==39 && flag==1)
 		rightKey=true;
-	else if(e.keyCode==37)
+	else if(e.keyCode==37 && flag==1)
 		leftKey=true;
+	else if(e.keyCode==32 && flag==1 && started==true)
+	{
+		pause();
+	}
+	else if(e.keyCode==32 && flag==0 && started==true)
+	{
+		play();
+	}
 }
 
 function keyUpHandler(e)
 {
-	if(e.keyCode==39)
+	if(e.keyCode==39 && flag==1)
 		rightKey=false;
-	else if(e.keyCode==37)
+	else if(e.keyCode==37 && flag==1)
 		leftKey=false;
 }
 
@@ -94,7 +108,7 @@ function touchEnd(evt)
 function mouseMove(e) 
 {
 	var relativeX = e.clientX - canvas.offsetLeft;
-    if(relativeX > 0 && relativeX < canvas.width) {
+    if(relativeX > 0 && relativeX < canvas.width  && flag==1) {
         paddleX = relativeX - paddleWidth/2;
     }
 }
@@ -130,8 +144,7 @@ function collision() {
 				b.y=0;
 				score++;
 				if(score == brickRow*brickCol) {
-                        alert("YOU WIN, CONGRATULATIONS!");
-                        document.location.reload();
+                        gameWon();
 				}
 			}
 		}
@@ -191,8 +204,7 @@ function draw()
 		}
 		else
 		{
-			alert('GAME OVER!');
-			document.location.reload();
+			gameOver();
 		}
 	}
 	x+=dx;
@@ -205,4 +217,72 @@ function draw()
 		paddleX-=8;
 
 }
-setInterval(draw, 10);
+function start()
+{
+	var overlay = document.getElementById("overlay");
+	overlay.style.display = 'none';
+	started=true;
+	setInterval(draw, 10);
+}
+function pause()
+{
+	flag=0;
+	var overlay = document.getElementById("overlay");
+	overlay.style.display = 'flex';
+	var startButton = document.getElementById("startButton");
+	startButton.style.display = 'none';
+	var play = document.getElementById("playButton");
+	playButton.style.display = 'block';
+	dxtemp = dx;
+	dytemp = dy;
+	dx=0;
+	dy=0;
+}
+function play()
+{
+	flag=1;
+	var overlay = document.getElementById("overlay");
+	overlay.style.display = 'none';
+	var startButton = document.getElementById("startButton");
+	startButton.style.display = 'none';
+	var playButton = document.getElementById("playButton");
+	playButton.style.display = 'none';
+	dx=dxtemp;
+	dy=dytemp;
+}
+function gameOver() {
+	var overlay = document.getElementById("overlay");
+	overlay.style.display = 'flex';
+	var breakout = document.getElementById("breakout");
+	breakout.innerHTML = 'GAME OVER!<br>Your score: '+score;
+	var startButton = document.getElementById("startButton");
+	startButton.style.display = 'none';
+	var playButton = document.getElementById("playButton");
+	playButton.style.display = 'none';
+	var startOver = document.getElementById("startOver");
+	startOver.style.display = 'block';
+	dxtemp = dx;
+	dytemp = dy;
+	dx=0;
+	dy=0;
+	flag=0;
+}
+function gameWon() {
+	var overlay = document.getElementById("overlay");
+	overlay.style.display = 'flex';
+	var breakout = document.getElementById("breakout");
+	breakout.innerHTML = 'YOU WON!';
+	var startButton = document.getElementById("startButton");
+	startButton.style.display = 'none';
+	var playButton = document.getElementById("playButton");
+	playButton.style.display = 'none';
+	var startOver = document.getElementById("startOver");
+	startOver.style.display = 'block';
+	dxtemp = dx;
+	dytemp = dy;
+	dx=0;
+	dy=0;
+	flag=0;
+}
+draw();
+// setInterval(draw, 10);

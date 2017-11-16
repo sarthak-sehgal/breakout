@@ -6,6 +6,19 @@
 	<body>
 		<canvas id="myCanvas"></canvas>
 
+		<div id="overlay">
+				<h1 id="breakout">BREAKOUT!</h1>
+				<ul>
+					<li>Keyboard controls: &larr; and &rarr;</li>
+					<li>Mouse controls: move cursor to move the paddle</li>
+					<li>Press spacebar to pause</li>
+					<li>Score is displayed on the top left</li>
+				</ul>
+				<button onclick="start()" id="startButton">Click to start</button>
+				<button onclick="play()" id="playButton" style="display: none">Continue</button>
+				<button onclick="document.location.reload()" id="startOver" style="display: none;">Start over</button>
+		</div>
+
 		<script type="text/javascript" src="script.js"></script>
 	</body>
 </html>

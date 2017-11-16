@@ -3,8 +3,63 @@
 	margin: 0;
 }
 
+body {
+	height: 100vh;
+	width: 100vw;
+}
+
 #myCanvas {
 	background-color: #eee;
 	display: block;
 	margin: 0 auto;
+}
+#overlay {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	color: #fff;
+	font-family: arial;
+	flex-direction: column;
+	background-color: rgba(0,0,0,0.7);
+	z-index: 1;
+	float: left;
+}
+#overlay h1 {
+	font-size: 40px;
+	margin-bottom: 10px;
+}
+#overlay ul {
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+#overlay button {
+	text-align: center;
+	text-transform: uppercase;
+	background-color: #0095DD;
+	color: #efefef;
+	padding: 10px 15px 10px 15px;
+	border: none;
+	font-size: 30px;
+	cursor: pointer;
+	border-radius: 3px;
+	z-index: 2;
+	border-bottom: 3px solid #086998;
+	transition: 0.5s all ease-in-out;
+	-webkit-transition: 0.5s all ease-in-out;
+	-moz-transition: 0.5s all ease-in-out;
+	-o-transition: 0.5s all ease-in-out;
+	/*box-shadow: 5px 5px 0 0 #086998;*/
+}
+#overlay button:hover {
+	background-color: #086998;
+	color: #fff;
+	border-color: #000;
+}
+#overlay button:active {
+	border: none !important;
 }
