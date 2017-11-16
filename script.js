@@ -67,13 +67,14 @@ function touchStart(evt)
 {
 	xDown = evt.touches[0].clientX;                                      
     yDown = evt.touches[0].clientY;
-    if(clientX>canvas.width)
+    if(xDown>canvas.width)
 		rightKey=true;
 }
-// function touchEnd(evt) 
-// {
-// 	rightKey=false;
-// }
+function touchEnd(evt) 
+{
+	if(rightKey==true)
+		rightKey=false;
+}
 
 function mouseMove(e) 
 {
