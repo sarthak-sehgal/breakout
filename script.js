@@ -66,8 +66,7 @@ function keyUpHandler(e)
 function touchStart(evt) 
 {
 	xDown = evt.touches[0].clientX;                                      
-    yDown = evt.touches[0].clientY;
-    if(xDown>canvas.width)
+    if(xDown>0 && xDown<canvas.width)
 		rightKey=true;
 }
 function touchEnd(evt) 
