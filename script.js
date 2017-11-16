@@ -17,15 +17,26 @@ var paddleWidth = canvas.width/7;
 var paddleX = (canvas.width-paddleWidth)/2;
 var paddleY = canvas.height-20;
 
+// checking whether devuce is touch
+if(('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))
+	var isTouch=1;
+else
+	var isTouch=0;
+console.log(isTouch);
 // events for paddle handling
 var rightKey = false;
 var leftKey = false;
-document.addEventListener("keydown", keyDownHandler);
-document.addEventListener("keyup", keyUpHandler);
-document.addEventListener("mousemove", mouseMove);
-document.addEventListener("touchstart", touchStart);
-document.addEventListener("touchend", touchEnd);
-
+if(!isTouch)
+{
+	document.addEventListener("keydown", keyDownHandler);
+	document.addEventListener("keyup", keyUpHandler);
+	document.addEventListener("mousemove", mouseMove);
+}
+else
+{
+	document.addEventListener("touchstart", touchStart);
+	document.addEventListener("touchend", touchEnd);
+}
 // brick variables
 var brickRow = 5;
 var brickCol = 10;
@@ -43,6 +54,7 @@ for(var i=0; i<brickCol; i++)
 	for(var j=0; j<brickRow; j++)
 		bricks[i][j]={x: 0, y: 0, status: 1};
 }
+
 
 // score variables
 var score=0;
